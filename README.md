@@ -76,6 +76,22 @@ CREATE TABLE readings (
 );
 ```
 
+Create function to fetch avg readings (SQL Editor)
+
+```text copy
+CREATE OR REPLACE FUNCTION get_daily_average_fullness()
+RETURNS TABLE(device_id text, average_fullness numeric) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT devices.device_id::text, AVG(readings.fullness_level) as average_fullness
+  FROM readings
+  JOIN devices ON readings.device_id = devices.device_id
+  WHERE DATE(readings.timestamp) = CURRENT_DATE
+  GROUP BY devices.device_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
 Extra: Run IOT data simulation to update the database for realtime visualization
 
 ```text copy
