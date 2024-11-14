@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "pages/api/iot/simulation.ts": {
+      "runtime": "@vercel/node@18.0.0"
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/iot/simulation",
+      "schedule": "*/15 * * * *"
+    }
+  ]
+}
